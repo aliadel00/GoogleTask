@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText lastName;
     private EditText email;
     private EditText link;
+    private LayoutInflater inflater;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,33 +87,15 @@ public class LoginActivity extends AppCompatActivity {
                 submitButton.setEnabled(loginFormState.isDataValid());
                 if (loginFormState.getFnameError() != null) {
                     firstName.setError(getString(loginFormState.getFnameError()));
-
                 }
-                if (loginFormState.getEmailError() != null) {
+                if (loginFormState.getEmailError() != null&&loginFormState.getLnameError() != null&&loginFormState.getFnameError() != null) {
                     email.setError(getString(loginFormState.getEmailError()));
                 }
-                if (loginFormState.getLnameError() != null) {
+                if (loginFormState.getLnameError() != null&&loginFormState.getFnameError() != null) {
                    lastName.setError(getString(loginFormState.getLnameError()));
                 }
             }
         });
-
-        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
-            @Override
-            public void onChanged(@Nullable LoginResult loginResult) {
-                if (loginResult.getError() != null) {
-                    showLoginFailed(loginResult.getError());
-                }
-                if (loginResult.getSuccess() != null) {
-                    updateUiWithUser(loginResult.getSuccess());
-                }
-                setResult(Activity.RESULT_OK);
-
-                //Complete and destroy login activity once successful
-                finish();
-            }
-        });
-
 
         TextWatcher afterTextChangedListener = new TextWatcher() {
             @Override
@@ -150,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.login_layout);
                 mContext = getApplicationContext();
-                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+                inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
                 Prompt = inflater.inflate(R.layout.user_prompt,null);
                 mPopupWindow = new PopupWindow(
                         Prompt,1000,1000,true
@@ -192,12 +175,23 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Toast.makeText(LoginActivity.this,"success",Toast.LENGTH_SHORT);
-            }
 
+                Prompt = inflater.inflate(R.layout.succes_message,null);
+                mPopupWindow = null;
+                mPopupWindow = new PopupWindow(
+                        Prompt,1000,1000,true
+                );
+                mPopupWindow.showAtLocation(mCoordinatorLayout, Gravity.CENTER,0,0);
+            }
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(LoginActivity.this,"fail",Toast.LENGTH_SHORT);
+
+                Prompt = inflater.inflate(R.layout.fail_message,null);
+                mPopupWindow = null;
+                mPopupWindow = new PopupWindow(
+                        Prompt,1000,1000,true
+                );
+                mPopupWindow.showAtLocation(mCoordinatorLayout, Gravity.CENTER,0,0);
             }
         });
     }
@@ -205,13 +199,5 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-    private void updateUiWithUser(LoggedInUserView model) {
-        String welcome =  model.getDisplayName();
-        // TODO : initiate successful logged in experience
-        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-    }
 
-    private void showLoginFailed(@StringRes Integer errorString) {
-        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
-    }
 }
