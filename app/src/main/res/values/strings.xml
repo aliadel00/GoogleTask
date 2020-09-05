@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">LEADERBOARD</string>
+    <string name="tab_text_1">LEARNING LEADERS</string>
+    <string name="tab_text_2">SKILL IQ LEADERS</string>
+    <string name="submit_button">Submit</string>
+    <string name="name_learning">TextView</string>
+    <string name="info_learning">TextView</string>
+    <string name="icon_placholder">icon placholder</string>
+    <string name="skill_name">TextView</string>
+    <string name="skill_info">TextView</string>
+    <string name="title_activity_login">Login</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_fname">Not a valid fname</string>
+    <string name="invalid_lname">Not a valid lname</string>
+    <string name="invalid_email">invalid E-mail</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="firstname">FirstName</string>
+    <string name="project_on_github_link">Project on GitHub(link)</string>
+    <string name="lastname">LastName</string>
+    <string name="submit">Submit</string>
+    <string name="title_activity_splash_window">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+</resources>
