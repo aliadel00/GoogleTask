@@ -47,8 +47,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button closeButton;
     private Button promptButton;
     private View Prompt;
-    private View Success;
-    private View Fail;
     private Context mContext;
     private PopupWindow mPopupWindow;
     private CoordinatorLayout mCoordinatorLayout;
@@ -177,7 +175,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 Prompt = inflater.inflate(R.layout.succes_message,null);
-                mPopupWindow = null;
+
                 mPopupWindow = new PopupWindow(
                         Prompt,1000,1000,true
                 );
@@ -187,7 +185,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                 Prompt = inflater.inflate(R.layout.fail_message,null);
-                mPopupWindow = null;
+
                 mPopupWindow = new PopupWindow(
                         Prompt,1000,1000,true
                 );

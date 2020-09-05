@@ -15,7 +15,7 @@ public interface RequestInterface {
     @GET("api/skilliq")
     Call<List<SkillModel>> getSkillJson();
     @FormUrlEncoded
-    @POST("1FAIpQLSf9d1TcNU6zc6KR8bSEM41Z1g1zl35cwZr2xyjIhaMAz8WChQ/formResponse")
+    @POST("FAIpQLSf9d1TcNU6zc6KR8bSEM41Z1g1zl35cwZr2xyjIhaMAz8WChQ/formResponse")
     Call<ResponseBody> SendData(
             @Field("entry.1877115667")String Name,
             @Field("entry.2006916086")String LastName,
