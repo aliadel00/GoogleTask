@@ -46,9 +46,12 @@ public class LoginActivity extends AppCompatActivity {
     private ImageButton backButton;
     private Button closeButton;
     private Button promptButton;
+    private Button successButton;
+    private Button failButton;
     private View Prompt;
     private Context mContext;
     private PopupWindow mPopupWindow;
+    private PopupWindow promptPopupWindow;
     private CoordinatorLayout mCoordinatorLayout;
     private static Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl("https://docs.google.com/forms/d/e/")
@@ -173,23 +176,36 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+                mPopupWindow.dismiss();
                 Prompt = inflater.inflate(R.layout.succes_message,null);
-
-                mPopupWindow = new PopupWindow(
-                        Prompt,1000,1000,true
+               promptPopupWindow = new PopupWindow(
+                        Prompt,1000,800,true
                 );
-                mPopupWindow.showAtLocation(mCoordinatorLayout, Gravity.CENTER,0,0);
+                successButton = (Button) Prompt.findViewById(R.id.success_button);
+                successButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        promptPopupWindow.dismiss();
+                    }
+                });
+                promptPopupWindow.showAtLocation(mCoordinatorLayout, Gravity.CENTER,0,0);
             }
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                mPopupWindow.dismiss();
                 Prompt = inflater.inflate(R.layout.fail_message,null);
 
-                mPopupWindow = new PopupWindow(
-                        Prompt,1000,1000,true
+                promptPopupWindow = new PopupWindow(
+                        Prompt,1000,800,true
                 );
-                mPopupWindow.showAtLocation(mCoordinatorLayout, Gravity.CENTER,0,0);
+               failButton = (Button) Prompt.findViewById(R.id.fail_button);
+               failButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        promptPopupWindow.dismiss();
+                    }
+                });
+                promptPopupWindow.showAtLocation(mCoordinatorLayout, Gravity.CENTER,0,0);
             }
         });
     }
